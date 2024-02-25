@@ -1,16 +1,20 @@
-import Image from 'next/image'
+/* eslint-disable jsx-a11y/alt-text */
+import Image, { ImageProps } from 'next/image'
 import clsx from 'clsx'
 
 import { Border } from '@/components/Border'
 
-interface Props {
-  author: {}
-  image: {}
+interface BlockquoteWithImageProps {
+  author: {
+    name: string
+    role: string
+  }
+  image: ImageProps
   children: React.ReactNode
   className?: string
 }
 
-function BlockquoteWithImage({ author, image, children, className }: Props) {
+function BlockquoteWithImage({ author, image, children, className }: BlockquoteWithImageProps) {
   return (
     <figure
       className={clsx(
@@ -23,7 +27,6 @@ function BlockquoteWithImage({ author, image, children, className }: Props) {
       </blockquote>
       <div className='col-start-1 row-start-2 overflow-hidden rounded-xl bg-neutral-100 sm:col-span-5 sm:row-span-full sm:rounded-3xl'>
         <Image
-          alt=''
           {...image}
           sizes='(min-width: 1024px) 17.625rem, (min-width: 768px) 16rem, (min-width: 640px) 40vw, 3rem'
           className='h-12 w-12 object-cover grayscale sm:aspect-[7/9] sm:h-auto sm:w-full'
@@ -39,7 +42,16 @@ function BlockquoteWithImage({ author, image, children, className }: Props) {
   )
 }
 
-function BlockquoteWithoutImage({ author, children, className }) {
+interface BlockquoteWithoutImageProps {
+  author: {
+    name: string
+    role: string
+  }
+  children: React.ReactNode
+  className?: string
+}
+
+function BlockquoteWithoutImage({ author, children, className }: BlockquoteWithoutImageProps) {
   return (
     <Border position='left' className={clsx('pl-8', className)}>
       <figure className='text-sm'>
@@ -54,7 +66,11 @@ function BlockquoteWithoutImage({ author, children, className }) {
   )
 }
 
-export function Blockquote(props) {
+interface BlockquoteProps {
+  image?: ImageProps
+}
+
+export function Blockquote(props: BlockquoteWithImageProps | BlockquoteWithoutImageProps) {
   if (props.image) {
     return <BlockquoteWithImage {...props} />
   }
