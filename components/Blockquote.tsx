@@ -67,12 +67,18 @@ function BlockquoteWithoutImage({ author, children, className }: BlockquoteWitho
 }
 
 interface BlockquoteProps {
+  author: {
+    name: string
+    role: string
+  }
   image?: ImageProps
+  children: React.ReactNode
+  className?: string
 }
 
-export function Blockquote(props: BlockquoteWithImageProps | BlockquoteWithoutImageProps) {
+export function Blockquote(props: BlockquoteProps) {
   if (props.image) {
-    return <BlockquoteWithImage {...props} />
+    return <BlockquoteWithImage {...props} image={props.image} /> // Add 'image={props.image}' to ensure the 'image' prop is of type 'ImageProps'.
   }
 
   return <BlockquoteWithoutImage {...props} />

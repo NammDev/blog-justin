@@ -1,6 +1,14 @@
 'use client'
 
-import { createContext, useContext, useEffect, useId, useRef, useState } from 'react'
+import {
+  MutableRefObject,
+  createContext,
+  useContext,
+  useEffect,
+  useId,
+  useRef,
+  useState,
+} from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import clsx from 'clsx'
@@ -14,7 +22,15 @@ import { Logo, Logomark } from '@/components/Logo'
 import { Offices } from '@/components/Offices'
 import { SocialMedia } from '@/components/SocialMedia'
 
-const RootLayoutContext = createContext({})
+interface RootLayoutContextProps {
+  logoHovered: boolean
+  setLogoHovered: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+const RootLayoutContext = createContext<RootLayoutContextProps>({
+  logoHovered: false,
+  setLogoHovered: () => {},
+})
 
 function XIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -33,8 +49,24 @@ function MenuIcon(props: React.SVGProps<SVGSVGElement>) {
   )
 }
 
-function Header({ panelId, invert = false, icon: Icon, expanded, onToggle, toggleRef }) {
-  let { logoHovered, setLogoHovered } = useContext(RootLayoutContext)
+interface HeaderProps {
+  panelId: string
+  invert?: boolean
+  icon: React.FC<React.SVGProps<SVGSVGElement>>
+  expanded: boolean
+  onToggle: () => void
+  toggleRef: MutableRefObject<undefined>
+}
+
+function Header({
+  panelId,
+  invert = false,
+  icon: Icon,
+  expanded,
+  onToggle,
+  toggleRef,
+}: HeaderProps) {
+  let { logoHovered, setLogoHovered } = useContext<RootLayoutContextProps>(RootLayoutContext)
 
   return (
     <Container>
@@ -79,7 +111,7 @@ function Header({ panelId, invert = false, icon: Icon, expanded, onToggle, toggl
   )
 }
 
-function NavigationRow({ children }) {
+function NavigationRow({ children }: { children: React.ReactNode }) {
   return (
     <div className='even:mt-px sm:bg-neutral-950'>
       <Container>
@@ -89,7 +121,7 @@ function NavigationRow({ children }) {
   )
 }
 
-function NavigationItem({ href, children }) {
+function NavigationItem({ href, children }: { href: string; children: React.ReactNode }) {
   return (
     <Link
       href={href}
@@ -116,16 +148,16 @@ function Navigation() {
   )
 }
 
-function RootLayoutInner({ children }) {
+function RootLayoutInner({ children }: { children: React.ReactNode }) {
   let panelId = useId()
   let [expanded, setExpanded] = useState(false)
   let openRef = useRef()
-  let closeRef = useRef()
+  let closeRef = useRef<HTMLDivElement | null>()
   let navRef = useRef()
   let shouldReduceMotion = useReducedMotion()
 
   useEffect(() => {
-    function onClick(event) {
+    function onClick(event: any) {
       if (event.target.closest('a')?.href === window.location.href) {
         setExpanded(false)
       }
@@ -144,7 +176,7 @@ function RootLayoutInner({ children }) {
         <div
           className='absolute left-0 right-0 top-2 z-40 pt-14'
           aria-hidden={expanded ? 'true' : undefined}
-          inert={expanded ? '' : undefined}
+          {...{ inert: expanded ? '' : undefined }}
         >
           <Header
             panelId={panelId}

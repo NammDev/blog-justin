@@ -1,13 +1,10 @@
-import { Inter } from 'next/font/google'
 import '@/styles/tailwind.css'
 import { RootLayout } from '@/components/RootLayout'
 
-const inter = Inter({ subsets: ['latin'] })
-
 export const metadata = {
   title: {
-    template: '%s - Studio',
-    default: 'Studio - Award winning developer studio based in Denmark',
+    template: '%s - Justin Bui',
+    default: 'Justin Bui - Mirae Asset Company',
   },
 }
 
