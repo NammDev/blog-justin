@@ -12,7 +12,7 @@ export const author = {
       validation: (Rule: Rule) => Rule.required().error('Name of author is required'),
     },
     {
-      name: 'jobTitle',
+      name: 'role',
       title: 'Job Description',
       type: 'string',
       validation: (Rule: Rule) => Rule.required().error('Job of author is required'),

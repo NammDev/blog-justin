@@ -1,7 +1,5 @@
-import { BackArrowIcon } from '@/components/Icons'
 import Provider from '@/components/ThemeProvider'
 import '@/styles/tailwind.css'
-import Link from 'next/link'
 
 export const metadata = {
   title: 'Next.js',
@@ -9,18 +7,5 @@ export const metadata = {
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <html lang='en'>
-      <body>
-        <Provider>
-          <div className='flex justify-between items-center py-1 px-5'>
-            <Link href='/'>
-              <BackArrowIcon />
-            </Link>
-          </div>
-          {children}
-        </Provider>
-      </body>
-    </html>
-  )
+  return <Provider>{children}</Provider>
 }

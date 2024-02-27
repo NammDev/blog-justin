@@ -12,14 +12,14 @@ export const blog = {
       validation: (Rule: Rule) => Rule.required().error('Title is required'),
     },
     {
-      name: 'slug',
+      name: 'href',
       title: 'Slug',
       type: 'slug',
       options: { source: 'title' },
       validation: (Rule: Rule) => Rule.required().error('Slug is required'),
     },
     {
-      name: 'publishedAt',
+      name: 'date',
       title: 'Published at',
       type: 'datetime',
       initialValue: () => new Date().toISOString(),
