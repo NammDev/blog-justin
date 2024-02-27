@@ -45,11 +45,5 @@ export const blog = {
       type: 'reference',
       to: [{ type: 'author' }],
     },
-    // {
-    //   name: 'tags',
-    //   type: 'array',
-    //   title: 'Tags',
-    //   of: [{ type: 'reference', to: [{ type: 'tag' }] }],
-    // },
   ],
 }
