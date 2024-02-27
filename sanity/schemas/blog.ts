@@ -12,7 +12,7 @@ export const blog = {
       validation: (Rule: Rule) => Rule.required().error('Title is required'),
     },
     {
-      name: 'href',
+      name: 'slug',
       title: 'Slug',
       type: 'slug',
       options: { source: 'title' },

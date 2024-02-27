@@ -24,7 +24,7 @@ export const author = {
       options: {
         hotspot: true,
       },
-      fields: [{ name: 'alt', type: 'string', title: 'Alt' }],
+      fields: [{ name: 'alt', type: 'string', title: 'Alt', options: { source: 'avatar' } }],
     },
   ],
 }

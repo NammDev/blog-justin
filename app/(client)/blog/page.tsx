@@ -27,7 +27,7 @@ interface Author {
 // Define type for a single blog object
 interface Blog {
   title: string
-  href: {
+  slug: {
     current: string
     _type: string
   }
@@ -39,7 +39,7 @@ interface Blog {
 async function getBlogs(): Promise<Blog[]> {
   const query = `*[_type == 'blog'] {
     title, 
-    href, 
+    slug, 
     date, 
     excerpt,
     author -> {
@@ -54,7 +54,6 @@ async function getBlogs(): Promise<Blog[]> {
 
 export default async function Blog() {
   let articles = await getBlogs()
-  console.log(articles)
 
   return (
     <>
@@ -68,13 +67,13 @@ export default async function Blog() {
       <Container className='mt-24 sm:mt-32 lg:mt-40'>
         <div className='space-y-24 lg:space-y-32'>
           {articles.map((article) => (
-            <FadeIn key={article.href}>
+            <FadeIn key={article.slug}>
               <article>
                 <Border className='pt-16'>
                   <div className='relative lg:-mx-4 lg:flex lg:justify-end'>
                     <div className='pt-10 lg:w-2/3 lg:flex-none lg:px-4 lg:pt-0'>
                       <h2 className='font-display text-2xl font-semibold text-neutral-950'>
-                        <Link href={`/blog/${article.href.current}`}>{article.title}</Link>
+                        <Link href={`/blog/${article.slug.current}`}>{article.title}</Link>
                       </h2>
                       <dl className='lg:absolute lg:left-0 lg:top-0 lg:w-1/3 lg:px-4'>
                         <dt className='sr-only'>Published</dt>
@@ -100,7 +99,7 @@ export default async function Blog() {
                       </dl>
                       <p className='mt-6 max-w-2xl text-base text-neutral-600'>{article.excerpt}</p>
                       <Button
-                        href={article.href.current}
+                        href={`/blog/${article.slug.current}`}
                         aria-label={`Read more: ${article.title}`}
                         className='mt-8'
                       >
