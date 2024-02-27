@@ -1,11 +1,6 @@
-export function formatDate(dateString: string) {
-  let parts = dateString.split('-')
-  let hasDay = parts.length > 2
+import { format } from 'date-fns'
 
-  return new Date(`${dateString}Z`).toLocaleDateString('en-US', {
-    day: hasDay ? 'numeric' : undefined,
-    month: 'long',
-    year: 'numeric',
-    timeZone: 'UTC',
-  })
+export const formatDate = (dateString: string): string => {
+  const date = new Date(dateString)
+  return format(date, 'MMMM d, yyyy')
 }

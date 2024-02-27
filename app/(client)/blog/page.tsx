@@ -9,6 +9,8 @@ import { FadeIn } from '@/components/FadeIn'
 import { PageIntro } from '@/components/PageIntro'
 import { formatDate } from '@/lib/formatDate'
 import { client } from '@/sanity/lib/client'
+import { urlForImage } from '@/sanity/lib/image'
+import type { Image as ImageType } from 'sanity'
 
 export const metadata = {
   title: 'Blog',
@@ -17,16 +19,9 @@ export const metadata = {
 }
 
 interface Author {
-  _type: string
-  _ref: string
   name: string
   role: string
-  image: {
-    alt: string
-    asset: {
-      _ref: string
-    }
-  }
+  avatar: ImageType
 }
 
 // Define type for a single blog object
@@ -43,7 +38,15 @@ interface Blog {
 
 async function getBlogs(): Promise<Blog[]> {
   const query = `*[_type == 'blog'] {
-    title, href, date, author, excerpt
+    title, 
+    href, 
+    date, 
+    excerpt,
+    author -> {
+      name, 
+      role, 
+      avatar
+    }
   }`
   const data: Blog[] = await client.fetch(query)
   return data
@@ -82,9 +85,11 @@ export default async function Blog() {
                         <dd className='mt-6 flex gap-x-4'>
                           <div className='flex-none overflow-hidden rounded-xl bg-neutral-100'>
                             <Image
-                              // alt=''
-                              {...article.author.image}
                               className='h-12 w-12 object-cover grayscale'
+                              src={urlForImage(article.author.avatar)}
+                              alt='Post'
+                              width={1800}
+                              height={1800}
                             />
                           </div>
                           <div className='text-sm text-neutral-950'>
