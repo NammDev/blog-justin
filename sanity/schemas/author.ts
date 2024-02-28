@@ -18,6 +18,12 @@ export const author = {
       validation: (Rule: Rule) => Rule.required().error('Job of author is required'),
     },
     {
+      name: 'bio',
+      title: 'Bio',
+      type: 'array',
+      of: [{ type: 'block' }],
+    },
+    {
       name: 'avatar',
       title: 'Avatar',
       type: 'image',
