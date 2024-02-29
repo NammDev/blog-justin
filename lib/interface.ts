@@ -14,7 +14,7 @@ export interface BlogInterface {
   slug: Slug
   date: string
   author: Author
-  excerpt: string
+  description: string
   body: any
 }
 
@@ -63,4 +63,12 @@ export interface WorkListItemHomepage {
   description: string
   logo: ImageType
   date: string
+}
+
+export interface CaseStudiesListItem {
+  title: string
+  slug: Slug
+  date: string
+  author: Author
+  description: string
 }

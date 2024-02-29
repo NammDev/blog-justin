@@ -184,7 +184,7 @@ async function getMoreArticles(slug?: string) {
         title, 
         slug, 
         date, 
-        excerpt,
+        description,
     }  
     `
   const articles = await client.fetch(query)

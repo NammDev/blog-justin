@@ -25,9 +25,9 @@ export const blog = {
       initialValue: () => new Date().toISOString(),
     },
     {
-      name: 'excerpt',
+      name: 'description',
       type: 'text',
-      title: 'Excerpt',
+      title: 'Description',
       validation: (Rule: Rule) => Rule.max(350).error('Max 350 characters'),
     },
     {

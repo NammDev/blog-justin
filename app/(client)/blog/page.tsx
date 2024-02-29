@@ -23,7 +23,7 @@ async function getBlogs(): Promise<BlogListItem[]> {
     title, 
     slug, 
     date, 
-    excerpt,
+    description,
     author -> {
       name, 
       role, 
@@ -79,7 +79,9 @@ export default async function Blog() {
                           </div>
                         </dd>
                       </dl>
-                      <p className='mt-6 max-w-2xl text-base text-neutral-600'>{article.excerpt}</p>
+                      <p className='mt-6 max-w-2xl text-base text-neutral-600'>
+                        {article.description}
+                      </p>
                       <Button
                         href={`/blog/${article.slug.current}`}
                         aria-label={`Read more: ${article.title}`}

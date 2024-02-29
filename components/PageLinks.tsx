@@ -7,9 +7,9 @@ import { FadeIn, FadeInStagger } from '@/components/FadeIn'
 import { GridPattern } from '@/components/GridPattern'
 import { SectionIntro } from '@/components/SectionIntro'
 import { formatDate } from '@/lib/formatDate'
-import { BlogInterface } from '@/app/(client)/blog/[slug]/page'
+import { Slug } from 'sanity'
 
-function ArrowIcon(props) {
+function ArrowIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox='0 0 24 6' aria-hidden='true' {...props}>
       <path fillRule='evenodd' clipRule='evenodd' d='M24 3 18 .5v2H0v1h18v2L24 3Z' />
@@ -17,7 +17,14 @@ function ArrowIcon(props) {
   )
 }
 
-function PageLink({ page }: { page: BlogInterface }) {
+interface PageLinkProps {
+  title: string
+  slug: Slug
+  date: string
+  description: string
+}
+
+function PageLink({ page }: { page: PageLinkProps }) {
   return (
     <article key={page.slug.current}>
       <Border position='left' className='relative flex flex-col items-start pl-8'>
@@ -25,7 +32,7 @@ function PageLink({ page }: { page: BlogInterface }) {
         <time dateTime={page.date} className='order-first text-sm text-neutral-600'>
           {formatDate(page.date)}
         </time>
-        <p className='mt-2.5 text-base text-neutral-600'>{page.excerpt}</p>
+        <p className='mt-2.5 text-base text-neutral-600'>{page.description}</p>
         <Link
           href={page.slug.current}
           className='mt-6 flex gap-x-3 text-base font-semibold text-neutral-950 transition hover:text-neutral-700'
@@ -40,14 +47,14 @@ function PageLink({ page }: { page: BlogInterface }) {
   )
 }
 
-interface PageLinkProps {
+interface PageLinksProps {
   title: string
   intro?: string
-  pages: BlogInterface[]
+  pages: PageLinkProps[]
   className: string
 }
 
-export function PageLinks({ title, intro, pages, className }: PageLinkProps) {
+export function PageLinks({ title, intro, pages, className }: PageLinksProps) {
   return (
     <div className={clsx('relative pt-24 sm:pt-32 lg:pt-40', className)}>
       <div className='absolute inset-x-0 top-0 -z-10 h-[884px] overflow-hidden rounded-t-4xl bg-gradient-to-b from-neutral-50'>

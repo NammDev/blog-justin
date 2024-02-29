@@ -18,7 +18,7 @@ async function getBlog(slug: string) {
     title,
     slug,
     date,
-    excerpt,
+    description,
     body,
     author -> {
         name, 
@@ -37,7 +37,7 @@ async function getMoreArticles(slug: string) {
     title,
     slug,
     date,
-    excerpt,
+    description,
   }
   `
   const articles = await client.fetch(query)

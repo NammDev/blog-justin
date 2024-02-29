@@ -4,7 +4,7 @@ import { FadeIn } from '@/components/FadeIn'
 import { GrayscaleTransitionImage } from '@/components/GrayscaleTransitionImage'
 import { PageIntro } from '@/components/PageIntro'
 import { PageLinks } from '@/components/PageLinks'
-import { BlogListItem, WorkInterface } from '@/lib/interface'
+import { BlogListItem, CaseStudiesListItem, WorkInterface } from '@/lib/interface'
 import { client } from '@/sanity/lib/client'
 import { notFound } from 'next/navigation'
 import { PortableText } from '@portabletext/react'
@@ -46,18 +46,18 @@ async function getCaseStudy(slug: string) {
   return blog
 }
 
-// async function getMoreCaseStudies(slug: string) {
-//   const query = `
-//   *[_type == "blog" && slug.current != "${slug}"] | order(date desc) [0...2] {
-//     title,
-//     slug,
-//     date,
-//     excerpt,
-//   }
-//   `
-//   const articles = await client.fetch(query)
-//   return articles
-// }
+async function getMoreCaseStudies(slug: string) {
+  const query = `
+  *[_type == "work" && slug.current != "${slug}"] | order(date desc) [0...2] {
+    title,
+    slug,
+    date,
+    description,
+  }
+  `
+  const articles = await client.fetch(query)
+  return articles
+}
 
 export const revalidate = 60
 
@@ -69,8 +69,11 @@ export default async function CaseStudyLayout({
   }
 }) {
   const caseStudy: WorkInterface = await getCaseStudy(params?.slug)
+  const moreCaseStudies: CaseStudiesListItem[] = await getMoreCaseStudies(params?.slug)
 
-  console.log(caseStudy.stats)
+  if (!caseStudy) {
+    return notFound()
+  }
 
   const { width, height } = getImageDimensions(caseStudy.image as SanityImageAsset)
 
@@ -162,13 +165,13 @@ export default async function CaseStudyLayout({
         </Container>
       </article>
 
-      {/* {moreCaseStudies.length > 0 && (
+      {moreCaseStudies.length > 0 && (
         <PageLinks
           className='mt-24 sm:mt-32 lg:mt-40'
           title='More case studies'
           pages={moreCaseStudies}
         />
-      )} */}
+      )}
 
       <ContactSection />
     </>
