@@ -9,20 +9,9 @@ import { PageIntro } from '@/components/PageIntro'
 import { PageLinks } from '@/components/PageLinks'
 import { SectionIntro } from '@/components/SectionIntro'
 import { StatList, StatListItem } from '@/components/StatList'
-import imageAngelaFisher from '@/images/team/angela-fisher.jpeg'
-import imageBenjaminRussel from '@/images/team/benjamin-russel.jpeg'
-import imageBlakeReid from '@/images/team/blake-reid.jpeg'
-import imageChelseaHagon from '@/images/team/chelsea-hagon.jpeg'
-import imageDriesVincent from '@/images/team/dries-vincent.jpeg'
-import imageEmmaDorsey from '@/images/team/emma-dorsey.jpeg'
-import imageJeffreyWebb from '@/images/team/jeffrey-webb.jpeg'
-import imageKathrynMurphy from '@/images/team/kathryn-murphy.jpeg'
-import imageLeonardKrasner from '@/images/team/leonard-krasner.jpeg'
-import imageLeslieAlexander from '@/images/team/leslie-alexander.jpeg'
-import imageMichaelFoster from '@/images/team/michael-foster.jpeg'
-import imageWhitneyFrancis from '@/images/team/whitney-francis.jpeg'
-import { BlogInterface } from '../blog/[slug]/page'
 import { client } from '@/sanity/lib/client'
+import { BlogInterface } from '@/lib/interface'
+import { urlForImage } from '@/sanity/lib/image'
 
 function Culture() {
   return (
@@ -52,80 +41,7 @@ function Culture() {
   )
 }
 
-const team = [
-  {
-    title: 'Leadership',
-    people: [
-      {
-        name: 'Leslie Alexander',
-        role: 'Co-Founder / CEO',
-        image: { src: imageLeslieAlexander },
-      },
-      {
-        name: 'Michael Foster',
-        role: 'Co-Founder / CTO',
-        image: { src: imageMichaelFoster },
-      },
-      {
-        name: 'Dries Vincent',
-        role: 'Partner & Business Relations',
-        image: { src: imageDriesVincent },
-      },
-    ],
-  },
-  {
-    title: 'Team',
-    people: [
-      {
-        name: 'Chelsea Hagon',
-        role: 'Senior Developer',
-        image: { src: imageChelseaHagon },
-      },
-      {
-        name: 'Emma Dorsey',
-        role: 'Senior Designer',
-        image: { src: imageEmmaDorsey },
-      },
-      {
-        name: 'Leonard Krasner',
-        role: 'VP, User Experience',
-        image: { src: imageLeonardKrasner },
-      },
-      {
-        name: 'Blake Reid',
-        role: 'Junior Copywriter',
-        image: { src: imageBlakeReid },
-      },
-      {
-        name: 'Kathryn Murphy',
-        role: 'VP, Human Resources',
-        image: { src: imageKathrynMurphy },
-      },
-      {
-        name: 'Whitney Francis',
-        role: 'Content Specialist',
-        image: { src: imageWhitneyFrancis },
-      },
-      {
-        name: 'Jeffrey Webb',
-        role: 'Account Coordinator',
-        image: { src: imageJeffreyWebb },
-      },
-      {
-        name: 'Benjamin Russel',
-        role: 'Senior Developer',
-        image: { src: imageBenjaminRussel },
-      },
-      {
-        name: 'Angela Fisher',
-        role: 'Front-end Developer',
-        image: { src: imageAngelaFisher },
-      },
-    ],
-  },
-]
-
-function Team() {
+function Team({ team }: { team: any }) {
   return (
     <Container className='mt-24 sm:mt-32 lg:mt-40'>
       <div className='space-y-24'>
@@ -148,8 +64,11 @@ function Team() {
                       <FadeIn>
                         <div className='group relative overflow-hidden rounded-3xl bg-neutral-100'>
                           <Image
-                            alt=''
-                            {...person.image}
+                            alt={person.name}
+                            src={urlForImage(person.image)}
+                            loading='lazy'
+                            width={1800}
+                            height={1800}
                             className='h-96 w-full object-cover grayscale transition duration-500 motion-safe:group-hover:scale-105'
                           />
                           <div className='absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black to-black/0 to-40% p-6'>
@@ -191,8 +110,40 @@ async function getMoreArticles(slug?: string) {
   return articles
 }
 
+async function getTeam() {
+  const query = `
+    *[_type == 'author' && (type in ["leadership", "member"])] {
+      name,
+      role,
+      avatar,
+      type
+    }
+  `
+  let team = await client.fetch(query)
+
+  // convert to desire format
+  team = team.reduce((acc, person) => {
+    if (!acc[person.type]) {
+      acc[person.type] = []
+    }
+    acc[person.type].push({
+      name: person.name,
+      role: person.role,
+      image: person.avatar, // Assuming 'asset' contains the image URL
+    })
+    return acc
+  }, {})
+
+  team = Object.keys(team).map((type) => ({
+    title: type.charAt(0).toUpperCase() + type.slice(1), // Capitalize the first letter of the type
+    people: team[type],
+  }))
+  return team
+}
+
 export default async function About() {
   const moreArticles: BlogInterface[] = await getMoreArticles()
+  const team = await getTeam()
 
   return (
     <>
@@ -224,7 +175,7 @@ export default async function About() {
 
       <Culture />
 
-      <Team />
+      <Team team={team} />
 
       <PageLinks
         className='mt-24 sm:mt-32 lg:mt-40'

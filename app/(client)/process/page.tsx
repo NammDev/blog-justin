@@ -1,4 +1,4 @@
-import { Blockquote } from '@/components/Blockquote'
+import { BlockquoteWithoutImage } from '@/components/Blockquote'
 import { ContactSection } from '@/components/ContactSection'
 import { Container } from '@/components/Container'
 import { FadeIn } from '@/components/FadeIn'
@@ -103,10 +103,13 @@ function Build() {
         </p>
       </div>
 
-      <Blockquote author={{ name: 'Debra Fiscal', role: 'CEO of Unseal' }} className='mt-12'>
+      <BlockquoteWithoutImage
+        author={{ name: 'Debra Fiscal', role: 'CEO of Unseal' }}
+        className='mt-12'
+      >
         Studio were so regular with their progress updates we almost began to think they were
         automated!
-      </Blockquote>
+      </BlockquoteWithoutImage>
     </Section>
   )
 }

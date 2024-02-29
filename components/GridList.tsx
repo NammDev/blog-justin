@@ -3,15 +3,17 @@ import clsx from 'clsx'
 import { Border } from '@/components/Border'
 import { FadeIn, FadeInStagger } from '@/components/FadeIn'
 
-export function GridList({ className, children }) {
+interface GridListProps {
+  className?: string
+  children: React.ReactNode
+}
+
+export function GridList({ className, children }: GridListProps) {
   return (
     <FadeInStagger>
       <ul
-        role="list"
-        className={clsx(
-          'grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3',
-          className
-        )}
+        role='list'
+        className={clsx('grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3', className)}
       >
         {children}
       </ul>
@@ -19,7 +21,14 @@ export function GridList({ className, children }) {
   )
 }
 
-export function GridListItem({ title, children, className, invert = false }) {
+interface GridListItemProps {
+  title: string
+  children: React.ReactNode
+  className?: string
+  invert?: boolean
+}
+
+export function GridListItem({ title, children, className, invert = false }: GridListItemProps) {
   return (
     <li
       className={clsx(
@@ -31,13 +40,8 @@ export function GridListItem({ title, children, className, invert = false }) {
       )}
     >
       <FadeIn>
-        <Border position="left" className="pl-8" invert={invert}>
-          <strong
-            className={clsx(
-              'font-semibold',
-              invert ? 'text-white' : 'text-neutral-950'
-            )}
-          >
+        <Border position='left' className='pl-8' invert={invert}>
+          <strong className={clsx('font-semibold', invert ? 'text-white' : 'text-neutral-950')}>
             {title}.
           </strong>{' '}
           {children}

@@ -10,6 +10,9 @@ export const author = {
       title: 'Name',
       type: 'string',
       validation: (Rule: Rule) => Rule.required().error('Name of author is required'),
+      options: {
+        hotspot: true,
+      },
     },
     {
       name: 'role',
@@ -18,17 +21,18 @@ export const author = {
       validation: (Rule: Rule) => Rule.required().error('Job of author is required'),
     },
     {
-      name: 'bio',
-      title: 'Bio',
+      name: 'type',
+      title: 'Type',
       type: 'string',
       options: {
         list: [
+          { title: 'Leadership', value: 'leadership' },
           { title: 'Member', value: 'member' },
-          { title: 'Leader', value: 'leader' },
+          { title: 'Client', value: 'client' },
         ],
         layout: 'radio', // Display as radio buttons
       },
-      description: 'Choose between "Member" or "Leader"',
+      description: 'Choose between "Leadership" or "Member", "Client"',
     },
     {
       name: 'avatar',
