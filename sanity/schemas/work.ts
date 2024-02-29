@@ -60,6 +60,15 @@ export const work = {
       type: 'string',
     },
     {
+      name: 'body',
+      type: 'array',
+      title: 'Body',
+      of: [
+        { type: 'block' },
+        { type: 'image', fields: [{ name: 'alt', type: 'string', title: 'Alt' }] },
+      ],
+    },
+    {
       name: 'testimonial',
       title: 'Testimonial',
       type: 'object',
