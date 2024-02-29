@@ -1,22 +1,23 @@
+import type { Image as ImageType } from 'sanity'
+
 export interface Author {
   name: string
   role: string
-  image: {
-    alt: string
-    asset: {
-      _ref: string
-    }
-  }
+  avatar: ImageType
+  bio: string
 }
 
 // Define type for a single blog object
-export interface Blog {
+export interface BlogInterface {
   title: string
-  href: {
+  slug: {
     current: string
+    _type: string
   }
   date: string
   author: Author
-  body: any
   excerpt: string
+  body: any
 }
+
+export interface BlogWithoutBody extends Omit<BlogInterface, 'body'> {}

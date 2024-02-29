@@ -3,7 +3,6 @@ import { urlForImage } from '@/sanity/lib/image'
 import { PortableText } from '@portabletext/react'
 import { notFound } from 'next/navigation'
 import React from 'react'
-import type { Image as ImageType } from 'sanity'
 
 import { ContactSection } from '@/components/ContactSection'
 import { Container } from '@/components/Container'
@@ -15,32 +14,7 @@ import { getImageDimensions } from '@sanity/asset-utils'
 import clsx from 'clsx'
 import { Border } from '@/components/Border'
 import { PageLinks } from '@/components/PageLinks'
-
-interface Params {
-  params: {
-    slug: string
-  }
-}
-
-interface Author {
-  name: string
-  role: string
-  avatar: ImageType
-  bio: string
-}
-
-// Define type for a single blog object
-export interface BlogInterface {
-  title: string
-  slug: {
-    current: string
-    _type: string
-  }
-  date: string
-  author: Author
-  excerpt: string
-  body: any
-}
+import { BlogInterface } from '@/lib/interface'
 
 async function getBlog(slug: string) {
   const query = `
@@ -76,7 +50,13 @@ async function getMoreArticles(slug: string) {
 
 export const revalidate = 60
 
-const page = async ({ params }: Params) => {
+const page = async ({
+  params,
+}: {
+  params: {
+    slug: string
+  }
+}) => {
   const article: BlogInterface = await getBlog(params?.slug)
   const moreArticles: BlogInterface[] = await getMoreArticles(params?.slug)
 

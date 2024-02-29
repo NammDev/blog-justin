@@ -10,7 +10,7 @@ import { PageIntro } from '@/components/PageIntro'
 import { formatDate } from '@/lib/formatDate'
 import { client } from '@/sanity/lib/client'
 import { urlForImage } from '@/sanity/lib/image'
-import type { Image as ImageType } from 'sanity'
+import { BlogWithoutBody } from '@/lib/interface'
 
 export const metadata = {
   title: 'Blog',
@@ -18,26 +18,7 @@ export const metadata = {
     'Stay up-to-date with the latest industry news as our marketing teams finds new ways to re-purpose old CSS tricks articles.',
 }
 
-interface Author {
-  name: string
-  role: string
-  avatar: ImageType
-  bio: string
-}
-
-// Define type for a single blog object
-interface Blog {
-  title: string
-  slug: {
-    current: string
-    _type: string
-  }
-  date: string
-  author: Author
-  excerpt: string
-}
-
-async function getBlogs(): Promise<Blog[]> {
+async function getBlogs(): Promise<BlogWithoutBody[]> {
   const query = `*[_type == 'blog'] {
     title, 
     slug, 
@@ -49,7 +30,7 @@ async function getBlogs(): Promise<Blog[]> {
       avatar
     }
   }`
-  const data: Blog[] = await client.fetch(query)
+  const data: BlogWithoutBody[] = await client.fetch(query)
   return data
 }
 
