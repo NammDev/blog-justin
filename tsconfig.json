@@ -27,7 +27,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "components/GrayscaleTransitionImage.jsx"
+    "components/GrayscaleTransitionImage.tsx"
   ],
   "exclude": ["node_modules"]
 }
