@@ -44,5 +44,24 @@ export interface WorkInterface {
   body: any
 }
 
-export interface WorkListItem
-  extends Omit<WorkInterface, 'tags' | 'stats' | 'body' | 'image' | 'description'> {}
+export interface WorkListItem {
+  client: string
+  title: string
+  slug: Slug
+  summary: string[]
+  logo: ImageType
+  date: string
+  service: string
+  testimonialContent: string
+  authorName: string
+  authorRole: string
+}
+
+export interface WorkListItemHomepage {
+  client: string
+  title: string
+  slug: Slug
+  description: string
+  logo: ImageType
+  date: string
+}

@@ -51,7 +51,11 @@ interface BlockquoteWithoutImageProps {
   className?: string
 }
 
-function BlockquoteWithoutImage({ author, children, className }: BlockquoteWithoutImageProps) {
+export function BlockquoteWithoutImage({
+  author,
+  children,
+  className,
+}: BlockquoteWithoutImageProps) {
   return (
     <Border position='left' className={clsx('pl-8', className)}>
       <figure className='text-sm'>
