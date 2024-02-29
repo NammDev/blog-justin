@@ -10,7 +10,7 @@ import { PageIntro } from '@/components/PageIntro'
 import { formatDate } from '@/lib/formatDate'
 import { client } from '@/sanity/lib/client'
 import { urlForImage } from '@/sanity/lib/image'
-import { BlogWithoutBody } from '@/lib/interface'
+import { BlogListItem } from '@/lib/interface'
 
 export const metadata = {
   title: 'Blog',
@@ -18,7 +18,7 @@ export const metadata = {
     'Stay up-to-date with the latest industry news as our marketing teams finds new ways to re-purpose old CSS tricks articles.',
 }
 
-async function getBlogs(): Promise<BlogWithoutBody[]> {
+async function getBlogs(): Promise<BlogListItem[]> {
   const query = `*[_type == 'blog'] {
     title, 
     slug, 
@@ -30,7 +30,7 @@ async function getBlogs(): Promise<BlogWithoutBody[]> {
       avatar
     }
   }`
-  const data: BlogWithoutBody[] = await client.fetch(query)
+  const data: BlogListItem[] = await client.fetch(query)
   return data
 }
 

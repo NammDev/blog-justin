@@ -20,4 +20,4 @@ export interface BlogInterface {
   body: any
 }
 
-export interface BlogWithoutBody extends Omit<BlogInterface, 'body'> {}
+export interface BlogListItem extends Omit<BlogInterface, 'body'> {}
