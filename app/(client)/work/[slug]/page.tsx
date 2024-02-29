@@ -4,12 +4,10 @@ import { FadeIn } from '@/components/FadeIn'
 import { GrayscaleTransitionImage } from '@/components/GrayscaleTransitionImage'
 import { PageIntro } from '@/components/PageIntro'
 import { PageLinks } from '@/components/PageLinks'
-import { BlogListItem, CaseStudiesListItem, WorkInterface } from '@/lib/interface'
-import { client } from '@/sanity/lib/client'
+import { CaseStudiesListItem, WorkInterface } from '@/lib/interface'
 import { notFound } from 'next/navigation'
 import { PortableText } from '@portabletext/react'
 import { myPortableTextComponents } from '@/lib/myPortableTextComponents'
-import { formatDate } from '@/lib/formatDate'
 import { getImageDimensions } from '@sanity/asset-utils'
 import { urlForImage } from '@/sanity/lib/image'
 import { SanityImageAsset } from '@sanity/image-url/lib/types/types'
@@ -17,59 +15,19 @@ import { TagList, TagListItem } from '@/components/TagList'
 import { BlockquoteWithImage, BlockquoteWithoutImage } from '@/components/Blockquote'
 import clsx from 'clsx'
 import { StatList, StatListItem } from '@/components/StatList'
-
-async function getCaseStudy(slug: string) {
-  const query = `
-  *[_type == "work" && slug.current == "${slug}"][0] {
-    client,
-    title,
-    slug,
-    description,
-    logo,
-    image,
-    date,
-    service,
-    testimonial {
-      content,
-      author -> {
-        name,
-        role,
-        avatar
-      }
-    },
-    tags,
-    stats,
-    body
-  }
-  `
-  const blog = await client.fetch(query)
-  return blog
-}
-
-async function getMoreCaseStudies(slug: string) {
-  const query = `
-  *[_type == "work" && slug.current != "${slug}"] | order(date desc) [0...2] {
-    title,
-    slug,
-    date,
-    description,
-  }
-  `
-  const articles = await client.fetch(query)
-  return articles
-}
+import { getMoreWorks, getWorkDetail } from '@/sanity/query'
 
 export const revalidate = 60
 
-export default async function CaseStudyLayout({
+export default async function WorkPage({
   params,
 }: {
   params: {
     slug: string
   }
 }) {
-  const caseStudy: WorkInterface = await getCaseStudy(params?.slug)
-  const moreCaseStudies: CaseStudiesListItem[] = await getMoreCaseStudies(params?.slug)
+  const caseStudy: WorkInterface = await getWorkDetail(params?.slug)
+  const moreCaseStudies: CaseStudiesListItem[] = await getMoreWorks(params?.slug)
 
   if (!caseStudy) {
     return notFound()

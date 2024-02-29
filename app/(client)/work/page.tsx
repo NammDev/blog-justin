@@ -19,8 +19,8 @@ import logoPhobia from '@/images/clients/phobia/logo-dark.svg'
 import logoUnseal from '@/images/clients/unseal/logo-dark.svg'
 import { formatDate } from '@/lib/formatDate'
 import { WorkListItem } from '@/lib/interface'
-import { client } from '@/sanity/lib/client'
 import { urlForImage } from '@/sanity/lib/image'
+import { getWorks } from '@/sanity/query'
 
 function CaseStudies({ caseStudies }: { caseStudies: WorkListItem[] }) {
   return (
@@ -132,24 +132,6 @@ export const metadata = {
   title: 'Our Work',
   description:
     'We believe in efficiency and maximizing our resources to provide the best value to our clients.',
-}
-
-async function getWorks(): Promise<WorkListItem[]> {
-  const query = `*[_type == 'work'] {
-    client,
-    title, 
-    slug,
-    summary,
-    logo,
-    date,
-    service,
-    'testimonialContent': testimonial.content,
-    'authorName': testimonial.author->name,
-    'authorRole': testimonial.author->role
-  }
-  `
-  const data: WorkListItem[] = await client.fetch(query)
-  return data
 }
 
 export default async function Work() {

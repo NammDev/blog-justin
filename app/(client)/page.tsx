@@ -18,9 +18,9 @@ import logoPhobiaLight from '@/images/clients/phobia/logo-light.svg'
 import logoUnseal from '@/images/clients/unseal/logo-light.svg'
 import imageLaptop from '@/images/laptop.jpg'
 import { WorkListItemHomepage } from '@/lib/interface'
-import { client } from '@/sanity/lib/client'
 import { urlForImage } from '@/sanity/lib/image'
 import { SectionIntro } from '@/components/SectionIntro'
+import { getWorksHomepage } from '@/sanity/query'
 
 const clients = [
   ['Phobia', logoPhobiaLight],
@@ -163,22 +163,8 @@ export const metadata = {
   description: 'We are developer studio working at the intersection of design and technology.',
 }
 
-async function getWorks(): Promise<WorkListItemHomepage[]> {
-  const query = `*[_type == 'work'] | order(date desc)[0...3] {
-    client,
-    title, 
-    slug,
-    description,
-    logo,
-    date
-  }
-  `
-  const data: WorkListItemHomepage[] = await client.fetch(query)
-  return data
-}
-
 export default async function Home() {
-  let caseStudies = await getWorks()
+  let caseStudies = await getWorksHomepage()
 
   return (
     <>
