@@ -22,6 +22,7 @@ interface Author {
   name: string
   role: string
   avatar: ImageType
+  bio: string
 }
 
 // Define type for a single blog object

@@ -69,18 +69,6 @@ export const work = {
           title: 'Author',
           type: 'reference',
           to: [{ type: 'author' }],
-          fields: [
-            {
-              name: 'name',
-              title: 'Name',
-              type: 'string',
-            },
-            {
-              name: 'role',
-              title: 'Role',
-              type: 'string',
-            },
-          ],
         },
         {
           name: 'content',
@@ -94,41 +82,6 @@ export const work = {
       title: 'Tags',
       type: 'array',
       of: [{ type: 'string' }],
-    },
-    {
-      name: 'blockquote',
-      title: 'Blockquote',
-      type: 'object',
-      fields: [
-        {
-          name: 'author',
-          title: 'Author',
-          type: 'reference',
-          to: [{ type: 'author' }],
-          fields: [
-            {
-              name: 'name',
-              title: 'Name',
-              type: 'string',
-            },
-            {
-              name: 'role',
-              title: 'Role',
-              type: 'string',
-            },
-          ],
-        },
-        {
-          name: 'image',
-          title: 'Image',
-          type: 'image',
-        },
-        {
-          name: 'content',
-          title: 'Content',
-          type: 'text',
-        },
-      ],
     },
     {
       name: 'stats',

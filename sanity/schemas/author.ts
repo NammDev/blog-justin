@@ -20,8 +20,15 @@ export const author = {
     {
       name: 'bio',
       title: 'Bio',
-      type: 'array',
-      of: [{ type: 'block' }],
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Member', value: 'member' },
+          { title: 'Leader', value: 'leader' },
+        ],
+        layout: 'radio', // Display as radio buttons
+      },
+      description: 'Choose between "Member" or "Leader"',
     },
     {
       name: 'avatar',
