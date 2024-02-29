@@ -1,20 +1,26 @@
-/* eslint-disable jsx-a11y/alt-text */
-import Image, { ImageProps } from 'next/image'
+import Image from 'next/image'
 import clsx from 'clsx'
 
 import { Border } from '@/components/Border'
+import { urlForImage } from '@/sanity/lib/image'
+import type { Image as ImageType } from 'sanity'
 
 interface BlockquoteWithImageProps {
   author: {
     name: string
     role: string
   }
-  image: ImageProps
+  image: ImageType
   children: React.ReactNode
   className?: string
 }
 
-function BlockquoteWithImage({ author, image, children, className }: BlockquoteWithImageProps) {
+export function BlockquoteWithImage({
+  author,
+  image,
+  children,
+  className,
+}: BlockquoteWithImageProps) {
   return (
     <figure
       className={clsx(
@@ -27,7 +33,12 @@ function BlockquoteWithImage({ author, image, children, className }: BlockquoteW
       </blockquote>
       <div className='col-start-1 row-start-2 overflow-hidden rounded-xl bg-neutral-100 sm:col-span-5 sm:row-span-full sm:rounded-3xl'>
         <Image
-          {...image}
+          alt=''
+          src={urlForImage(image)}
+          height={1800}
+          width={1800}
+          // blurWidth={8}
+          // blurHeight={8}
           sizes='(min-width: 1024px) 17.625rem, (min-width: 768px) 16rem, (min-width: 640px) 40vw, 3rem'
           className='h-12 w-12 object-cover grayscale sm:aspect-[7/9] sm:h-auto sm:w-full'
         />
@@ -68,22 +79,4 @@ export function BlockquoteWithoutImage({
       </figure>
     </Border>
   )
-}
-
-interface BlockquoteProps {
-  author: {
-    name: string
-    role: string
-  }
-  image?: ImageProps
-  children: React.ReactNode
-  className?: string
-}
-
-export function Blockquote(props: BlockquoteProps) {
-  if (props.image) {
-    return <BlockquoteWithImage {...props} image={props.image} /> // Add 'image={props.image}' to ensure the 'image' prop is of type 'ImageProps'.
-  }
-
-  return <BlockquoteWithoutImage {...props} />
 }

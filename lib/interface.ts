@@ -27,7 +27,6 @@ export interface WorkInterface {
   title: string
   slug: Slug
   description: string
-  summary: string[]
   logo: ImageType
   image: ImageType
   date: string

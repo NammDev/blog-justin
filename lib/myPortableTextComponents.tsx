@@ -39,4 +39,13 @@ export const myPortableTextComponents = {
       </Border>
     ),
   },
+  table: function Table({ className, ...props }: { className: string }) {
+    return (
+      <div className={clsx('my-10 max-sm:-mx-6 max-sm:flex max-sm:overflow-x-auto', className)}>
+        <div className='max-sm:min-w-full max-sm:flex-none max-sm:px-6'>
+          <table {...props} />
+        </div>
+      </div>
+    )
+  },
 }
