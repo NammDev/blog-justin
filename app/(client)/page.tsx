@@ -63,12 +63,13 @@ function CaseStudies({ caseStudies }: { caseStudies: WorkListItemHomepage[] }) {
   return (
     <>
       <SectionIntro
-        title='Harnessing technology for a brighter future'
+        title='Leveraging Technology for Financial Empowerment'
         className='mt-24 sm:mt-32 lg:mt-40'
       >
         <p>
-          We believe technology is the answer to the world’s greatest challenges. It’s also the
-          cause, so we find ourselves in bit of a catch 22 situation.
+          We harness the power of technology to address financial challenges, recognizing its dual
+          role as both solution and challenge. Embracing this duality, we navigate towards financial
+          empowerment.
         </p>
       </SectionIntro>
       <Container className='mt-16'>
@@ -116,12 +117,13 @@ function Services() {
     <>
       <SectionIntro
         eyebrow='Services'
-        title='We help you identify, explore and respond to new opportunities.'
+        title='Our guiding principles towards excellence and client satisfaction'
         className='mt-24 sm:mt-32 lg:mt-40'
       >
         <p>
-          As long as those opportunities involve giving us money to re-purpose old projects — we can
-          come up with an endless number of those.
+          At Mirae Asset, we uphold a commitment to integrity, innovation, and client-centricity.
+          Through transparent practices and personalized solutions, we empower individuals to
+          achieve their financial goals with confidence
         </p>
       </SectionIntro>
       <Container className='mt-16'>
@@ -136,21 +138,25 @@ function Services() {
             </FadeIn>
           </div>
           <List className='mt-16 lg:mt-0 lg:w-1/2 lg:min-w-[33rem] lg:pl-4'>
-            <ListItem title='Web development'>
-              We specialise in crafting beautiful, high quality marketing pages. The rest of the
-              website will be a shell that uses lorem ipsum everywhere.
+            <ListItem title='Sensible'>
+              Mirae Asset always provides customers with reliable information. As a result,
+              customers can make the most sensible decisions in managing their finances.
             </ListItem>
-            <ListItem title='Application development'>
-              We have a team of skilled developers who are experts in the latest app frameworks,
-              like Angular 1 and Google Web Toolkit.
+            <ListItem title='Understanding'>
+              In all of its products and services, Mirae Asset consistently emphasizes the power of
+              understanding - understanding oneself and understanding the external environment.
+              Financial autonomy stems from understanding.
             </ListItem>
-            <ListItem title='E-commerce'>
-              We are at the forefront of modern e-commerce development. Which mainly means adding
-              your logo to the Shopify store template we’ve used for the past six years.
+            <ListItem title='Action'>
+              Mirae Asset pursues a doable mindset - Instead of waiting for certain external
+              conditions, we encourage you to take action immediately to gradually reach your
+              financial goals.
             </ListItem>
-            <ListItem title='Custom content management'>
-              At Studio we understand the importance of having a robust and customised CMS. That’s
-              why we run all of our client projects out of a single, enormous Joomla instance.
+            <ListItem title='Empowerment'>
+              At Mirae Asset, we believe in empowering individuals to take control of their
+              financial futures. Through our comprehensive resources and guidance, we empower you to
+              make informed decisions and navigate the complexities of financial management with
+              confidence.
             </ListItem>
           </List>
         </div>
@@ -171,11 +177,13 @@ export default async function Home() {
       <Container className='mt-24 sm:mt-32 md:mt-56'>
         <FadeIn className='max-w-3xl'>
           <h1 className='font-display text-5xl font-medium tracking-tight text-neutral-950 [text-wrap:balance] sm:text-7xl'>
-            Award winning developer studio based in Denmark.
+            Improve your own financial capacity
           </h1>
           <p className='mt-6 text-xl text-neutral-600'>
-            We are developer studio working at the intersection of design and technology. It’s a
-            really busy intersection though — a lot of our staff have been involved in hit and runs.
+            Mirae Asset is a professional and trustworthy provider of training and investment
+            solutions for individuals. All products of Mirae Asset aim to support customers in
+            enhancing their personal financial capabilities, achieving financial peace of mind, and
+            empowering them to design a meaningful and happy life.
           </p>
         </FadeIn>
       </Container>
@@ -188,8 +196,9 @@ export default async function Home() {
         className='mt-24 sm:mt-32 lg:mt-40'
         client={{ name: 'Phobia', logo: logoPhobiaDark }}
       >
-        The team at Studio went above and beyond with our onboarding, even finding a way to access
-        the user’s microphone without triggering one of those annoying permission dialogs.
+        The Mirae Asset team surpassed expectations during onboarding, ingeniously accessing the
+        user&apos;s microphone without intrusive permission dialogs. Their professional solutions
+        empower individuals to take control of their finances, improving lives.
       </Testimonial>
 
       <Services />
