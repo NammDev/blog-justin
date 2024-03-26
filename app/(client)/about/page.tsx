@@ -45,7 +45,7 @@ function Team({ team }: { team: any }) {
   return (
     <Container className='mt-24 sm:mt-32 lg:mt-40'>
       <div className='space-y-24'>
-        {team.map((group) => (
+        {team.map((group: any) => (
           <FadeInStagger key={group.title}>
             <Border as={FadeIn} />
             <div className='grid grid-cols-1 gap-6 pt-12 sm:pt-16 lg:grid-cols-4 xl:gap-8'>
@@ -59,7 +59,7 @@ function Team({ team }: { team: any }) {
                   role='list'
                   className='grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:gap-8'
                 >
-                  {group.people.map((person) => (
+                  {group.people.map((person: any) => (
                     <li key={person.name}>
                       <FadeIn>
                         <div className='group relative overflow-hidden rounded-3xl bg-neutral-100'>
@@ -122,7 +122,7 @@ async function getTeam() {
   let team = await client.fetch(query)
 
   // convert to desire format
-  team = team.reduce((acc, person) => {
+  team = team.reduce((acc: any, person: any) => {
     if (!acc[person.type]) {
       acc[person.type] = []
     }
