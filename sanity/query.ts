@@ -27,8 +27,7 @@ export async function getWorksHomepage(): Promise<WorkListItemHomepage[]> {
       description,
       logo,
       date
-    }
-    `
+    }`
   const data: WorkListItemHomepage[] = await client.fetch(query)
   return data
 }
