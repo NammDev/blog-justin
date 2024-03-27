@@ -171,7 +171,7 @@ export const metadata = {
 
 export default async function Home() {
   let caseStudies = await getWorksHomepage()
-
+  // get case studies from sanity for homepage
   return (
     <>
       <Container className='mt-24 sm:mt-32 md:mt-56'>
